@@ -25,7 +25,7 @@ const getFutureValueResult = async (
   periods: number
 ) => {
   try {
-    const res = await fetch("http://localhost:3000/api/result/future-value", {
+    const res = await fetch(`${location.origin}/api/result/future-value`, {
       method: "POST",
       body: JSON.stringify({
         initialAmount,
