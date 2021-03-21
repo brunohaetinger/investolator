@@ -8,4 +8,4 @@ For me it's a way to improve my skills using some technologies as:
 - Formik
 - yup
 
-And probably more, as the project grows.
+And probably more, as the project grows...
