@@ -22,17 +22,20 @@ const getFutureValueResult = async (
   periods: number
 ) => {
   try {
-    const res = await fetch(`${process.env.HOST}/api/result/future-value`, {
-      method: "POST",
-      body: JSON.stringify({
-        initialAmount,
-        interestRate,
-        periods,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/result/future-value`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          initialAmount,
+          interestRate,
+          periods,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const { result } = await res.json();
     return result;
   } catch (err) {
