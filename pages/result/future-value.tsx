@@ -6,9 +6,6 @@ interface FutureValueResultProps {
 
 const FutureValueResult = ({ result }: FutureValueResultProps) => {
   console.log(result);
-
-  const navigateHome = () => {};
-
   return (
     <>
       <h1>Future Value Result Page : {result}</h1>
@@ -25,7 +22,7 @@ const getFutureValueResult = async (
   periods: number
 ) => {
   try {
-    const res = await fetch(`${location.origin}/api/result/future-value`, {
+    const res = await fetch(`${process.env.HOST}/api/result/future-value`, {
       method: "POST",
       body: JSON.stringify({
         initialAmount,
@@ -39,7 +36,7 @@ const getFutureValueResult = async (
     const { result } = await res.json();
     return result;
   } catch (err) {
-    console.log("Error calculating future value. 😥");
+    console.log("Error calculating future value. 😥", err);
   }
 };
 
