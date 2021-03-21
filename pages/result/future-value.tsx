@@ -39,7 +39,7 @@ const getFutureValueResult = async (
     const { result } = await res.json();
     return result;
   } catch (err) {
-    alert("Error calculating future value. 😥");
+    console.log("Error calculating future value. 😥");
   }
 };
 
