@@ -2,7 +2,9 @@ import { Button, TextField } from "@material-ui/core";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import styled from "styled-components";
-import { ChangeEvent, SyntheticEvent } from "react";
+import { ChangeEvent } from "react";
+import { useRouter } from "next/router";
+import urlRoute from "../services/urlRoute";
 
 const validationSchema = yup.object({
   initialAmount: yup
@@ -19,7 +21,9 @@ const validationSchema = yup.object({
     .required("Periods is required"),
 });
 
-export default function SimpleFutureValue() {
+const FutureValueForm = () => {
+  const router = useRouter();
+
   const formik = useFormik({
     initialValues: {
       initialAmount: 0,
@@ -27,8 +31,8 @@ export default function SimpleFutureValue() {
       periods: 12,
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      router.push(urlRoute("/result/future-value", { ...values }));
     },
   });
 
@@ -44,22 +48,9 @@ export default function SimpleFutureValue() {
     formik.setFieldValue(name, value); // this call formik to set your value
   };
 
-  /**
-   * calculate Future Value.
-   * @constructor
-   * @param {number} interestRate - Percent of interest rate per period.
-   */
-  function calculateFV(
-    presentValue: number,
-    interestRate: number,
-    periods: number
-  ): number {
-    return presentValue * Math.pow(1 + interestRate / 100, periods);
-  }
-
   return (
     <Form onSubmit={formik.handleSubmit} noValidate autoComplete="off">
-      <TextField
+      <InputField
         name="initialAmount"
         label="Valor inicial"
         type="number"
@@ -70,7 +61,7 @@ export default function SimpleFutureValue() {
         }
         helperText={formik.touched.initialAmount && formik.errors.initialAmount}
       />
-      <TextField
+      <InputField
         name="interestRate"
         label="Taxa % por período"
         type="number"
@@ -81,7 +72,7 @@ export default function SimpleFutureValue() {
         }
         helperText={formik.touched.interestRate && formik.errors.interestRate}
       />
-      <TextField
+      <InputField
         name="periods"
         label="Num. de períodos"
         type="number"
@@ -95,7 +86,7 @@ export default function SimpleFutureValue() {
       </SubmitButton>
     </Form>
   );
-}
+};
 
 const Form = styled.form`
   display: flex;
@@ -108,3 +99,11 @@ const SubmitButton = styled(Button)`
     margin-top: 10px;
   }
 `;
+
+const InputField = styled(TextField)`
+  && {
+    margin-top: 20px;
+  }
+`;
+
+export default FutureValueForm;

@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import SimpleFutureValue from '../src/components/simpleFutureValue'
+import Head from "next/head";
+import FutureValueForm from "../src/components/FutureValueForm";
 
 export default function Home() {
   return (
@@ -10,12 +10,9 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className="title">
-          Welcome to Investolator!
-        </h1>
+        <h1 className="title">Welcome to Investolator!</h1>
 
-        <SimpleFutureValue></SimpleFutureValue>
-        
+        <FutureValueForm></FutureValueForm>
       </main>
 
       <footer>
@@ -24,7 +21,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by: <strong>{' Bruno Haetinger'}</strong>
+          Powered by: <strong>{" Bruno Haetinger"}</strong>
         </a>
       </footer>
 
@@ -105,5 +102,5 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
+  );
 }
