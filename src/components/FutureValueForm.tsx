@@ -32,7 +32,10 @@ const FutureValueForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      router.push(urlRoute("/result/future-value", { ...values }));
+      router.push({
+        pathname: '/result/future-value',
+        query: { ...values },
+      });
     },
   });
 

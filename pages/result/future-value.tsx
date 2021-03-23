@@ -1,55 +1,38 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { getFutureValueResult } from "../../src/services/CalculatorService";
 
-interface FutureValueResultProps {
-  result: number;
-}
 
-const FutureValueResult = ({ result }: FutureValueResultProps) => {
-  console.log(result);
+const FutureValueResult = () => {
+  const [result, setResult] = useState(null);
+  const {query, isReady} = useRouter();
+  const loading = <h2>Loading...</h2>;
+
+  useEffect(()=> {
+    if(isReady){
+      const {initialAmount, interestRate, periods } = query;
+      console.log(query);
+      const getFutureValue = async () =>{
+        const result = await getFutureValueResult(initialAmount, interestRate, periods)
+        setResult(result);
+      }
+      getFutureValue();
+    }
+  }, [isReady])
+
+  if(!isReady){
+    return loading
+  }
+
   return (
     <>
-      <h1>Future Value Result Page : {result}</h1>
+      { result === null ? loading : <h1>Future Value Result Page : {result}</h1> }
       <Link href="/">
         <a>Go Home</a>
       </Link>
     </>
   );
 };
-
-const getFutureValueResult = async (
-  initialAmount: number,
-  interestRate: number,
-  periods: number
-) => {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/result/future-value`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          initialAmount,
-          interestRate,
-          periods,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const { result } = await res.json();
-    return result;
-  } catch (err) {
-    console.log("Error calculating future value. 😥", err);
-  }
-};
-
-export async function getServerSideProps(context: any) {
-  const { initialAmount, interestRate, periods } = context.query;
-  return {
-    props: {
-      result: await getFutureValueResult(initialAmount, interestRate, periods),
-    }, // will be passed to the page component as props
-  };
-}
 
 export default FutureValueResult;
