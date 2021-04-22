@@ -4,12 +4,11 @@ import * as yup from "yup";
 import styled from "styled-components";
 import { ChangeEvent } from "react";
 import { useRouter } from "next/router";
-import urlRoute from "../services/urlRoute";
 
 const validationSchema = yup.object({
   initialAmount: yup
     .number()
-    .positive("Initial Amount should be positive")
+    .positive("Initial amount should be positive")
     .required("Initial amount is required"),
   interestRate: yup
     .number()
@@ -33,7 +32,7 @@ const FutureValueForm = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       router.push({
-        pathname: '/result/future-value',
+        pathname: "/result/future-value",
         query: { ...values },
       });
     },
