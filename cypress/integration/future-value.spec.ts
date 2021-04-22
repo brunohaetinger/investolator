@@ -49,7 +49,7 @@ describe("Future Value", () => {
 
     cy.url()
       .should("not.include", "/result/future-value")
-      .should("eq", "http://localhost:3000/");
+      .should("eq", `${Cypress.config().baseUrl}/`);
 
     cy.contains("Initial amount is required");
     cy.contains("Interest rate is required");
