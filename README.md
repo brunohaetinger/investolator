@@ -1,4 +1,4 @@
-# Invetolator
+# Investolator
 
 Investolator is a Investments Calculator to help you to know the amount you can expect to have in some time.
 
